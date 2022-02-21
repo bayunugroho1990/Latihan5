@@ -2,9 +2,10 @@
 \IEEEoverridecommandlockouts
 \usepackage{cite}
 \usepackage{graphicx}
-\usepackage{algorithm}
-\usepackage{algpseudocode}
 \usepackage{smartdiagram}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{algpseudocode}
 
 
 % Judul
@@ -58,40 +59,36 @@ atau tanaman.
 
 \subsection{Algoritma Djikstra}
 
-% Insert the algorithm
 \begin{algorithm}
-    \caption{Djikstra's Algorithm Djikstra}
-    \begin{algorithmic}[1]
-    \Procedure{ArraySum}{$A$}
-        \State $sum = 0$
-        \For {each integer $i$ in $A$}
-            \State $sum = sum + i$
-        \EndFor
-        \State Return $sum$
-    \EndProcedure
-    \end{algorithmic}
-\end{algorithm}
-
-\begin{algorithm}
-    \caption{An algorithm with caption}\label{alg:cap}
-    \begin{algorithmic}
-    \Require $n \geq 0$
-    \Ensure $y = x^n$
-    \State $y \gets 1$
-    \State $X \gets x$
-    \State $N \gets n$
-    \While{$N \neq 0$}
-    \If{$N$ is even}
-        \State $X \gets X \times X$
-        \State $N \gets \frac{N}{2}$  \Comment{This is a comment}
-    \ElsIf{$N$ is odd}
-        \State $y \gets y \times X$
-        \State $N \gets N - 1$
-    \EndIf
-    \EndWhile
-    \end{algorithmic}
-    \end{algorithm}
+    \caption{Dijkstra's Algorithm}
+    \SetAlgoLined
+    \DontPrintSemicolon
+   
+    \KwResult{Find the shortest path from a to z}
+    \textbf{procedure} Dijkstra (\textit{G}: weighted connected simple graph, with all weights positive)
     
+    \{\textit{G} has vertice $a = v_0, v_1, ..., v_n = z$ and lengths $w(v_i, v_j)$ where $w(v_i, v_j) = \infty$ if $v_i, v_j$ is not an edge in \textit{G}\}
+    
+    \For{$i := 1$ \KwTo $n$}{
+        $L(v_i) := \infty$\;
+    }
+    $L(a) := 0$\;
+    $S := \varnothing$
+
+    \{the labels are now initialized so that the label of $a$ is 0 and all other labels are $\infty$, and $S$ is the empty set\}
+
+    \While{$z \notin S$}{
+        $u :=$ a vertex not in S with $L(u)$ minimal\;
+        $S := S \cup \{u\}$\;
+        \For{\textit{all vertices} $v$ \textit{not in} $S$}{
+            \If{$L(u) + w(u,v) < L(v)$}{
+                $L(v) := L(u) + w(u,v)$\;
+                \{this adds a vertex to $S$ with minimal label and updates the labels of vertices not in S\}\;
+            }
+        }
+    }
+    \textbf{return} $L(z)=$ \textit{length of a shortest path from a to z}
+\end{algorithm}
 
 Algoritma Dijkstra adalah algoritma yang digunakan untuk
 menemukan jarak jalur terpendek antara dua vertice pada
